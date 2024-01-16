@@ -1,9 +1,15 @@
-from http.server import SimpleHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse, parse_qs
 
 
-class MainHTTPRequestHandler(SimpleHTTPRequestHandler):
+class MainHTTPRequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
+        self.handleRequest()
+
+    def do_POST(self):
+        self.handleRequest()
+
+    def handleRequest(self):
         parsed_url = urlparse(self.path)
         query_params = parse_qs(parsed_url.query)
         if "l" in query_params:
